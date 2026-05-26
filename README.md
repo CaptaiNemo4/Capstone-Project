@@ -12,7 +12,7 @@ survival-weighted correction, and from pure cash-flow accounting — on a panel 
 **117 bonds across 11 countries (58,489 bond-days)** spanning the COVID-19
 credit shock.
 
-![Headline result](readme_assets/overstatement_ratio.png)
+![Headline result](overstatement_ratio.png)
 
 > Formula convexity divided by realized convexity, per distress bucket. A value
 > of 1.0 means the formula is right. It rises from **1.12** for calm bonds to
