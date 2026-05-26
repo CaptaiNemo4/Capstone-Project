@@ -109,7 +109,7 @@ each coupon is received only if the issuer hasn't defaulted, with the hazard
 rate read from the bond's own Z-spread — pulls the measure toward the realized
 value and, more importantly, **strips out the credit-quality tilt**:
 
-![Survival-adjusted convexity](readme_assets/survival_adjusted.png)
+![Survival-adjusted convexity](survival_adjusted.png)
 
 The standard formula's error grows across buckets (spread of **0.46** between
 calm and distressed). The adjusted measure is nearly flat across buckets
@@ -125,7 +125,7 @@ cannot — it's pure accounting. For one stylized bond, compute convexity twice 
 default probability rises: once from promised cash flows (what the formula does),
 once from expected cash flows (what reality does).
 
-![Cash-flow mechanism](readme_assets/cashflow_mechanism.png)
+![Cash-flow mechanism](cashflow_mechanism.png)
 
 The promised-cash-flow convexity (blue) is essentially flat in credit quality.
 The expected-cash-flow convexity (red) falls as default risk rises. The wedge
@@ -147,7 +147,7 @@ overstatement**.
 
 ## How bonds are classified
 
-![Distress classification](readme_assets/distress_by_country.png)
+![Distress classification](distress_by_country.png)
 
 Stress is measured per bond as **blowout** — how far its crisis-peak yield rose
 above its own pre-crisis baseline — with cutoffs anchored on how
