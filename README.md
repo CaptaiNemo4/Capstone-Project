@@ -29,12 +29,12 @@ Takes two raw vendor exports and produces a single, analysis-ready CSV.
 
 | Step | What it does |
 |------|--------------|
-| 1 | Load panel and standardise column types |
-| 2 | **Convexity scale harmonisation** – detects and corrects the ~100× field-convention discrepancy that appears in some Refinitiv exports |
+| 1 | Load panel and standardize column types |
+| 2 | **Convexity scale harmonization** – detects and corrects the ~100× field-convention discrepancy that appears in some Refinitiv exports |
 | 3 | **Restructuring cutoffs** – drops Ecuador rows after 2020-08-31 and Argentina rows after 2020-09-04, where vendor analytics reference stale pre-restructuring cash-flow schedules |
-| 4 | **Locked-convention formula analytics** – recomputes modified duration and convexity from cash flows using 30/360 day-count, periodic-yield modified duration, and dirty-price convexity normalisation |
+| 4 | **Locked-convention formula analytics** – recomputes modified duration and convexity from cash flows using 30/360 day-count, periodic-yield modified duration, and dirty-price convexity normalization |
 | 5 | **Vendor data-quality flag** – flags rows where `Modified Duration > remaining years to maturity`, which is mathematically impossible and indicates a corrupted vendor record |
-| 6 | **Validation** – cross-checks formula values against vendor-reported analytics by yield bucket; confirms implementation, not a thesis result |
+| 6 | **Validation** – cross-checks formula values against vendor-reported analytics by yield bucket; confirms implementation |
 | 7 | **Argentina adapter & merge** – renames Bloomberg raw field names to the panel schema, parses coupon and maturity from security descriptions, recomputes formula analytics on the same locked convention, then merges into the main panel |
 | 8 | Save `panel_analysis.csv` |
 
@@ -58,7 +58,7 @@ Consumes `panel_analysis.csv` and produces a full set of figures and statistics 
 
 The toolkit is immediately usable for a range of fixed-income data-analysis tasks:
 
-1. **Cross-vendor data harmonisation** – the convexity scale-detection and Argentina adapter logic handle the real-world problem of merging Refinitiv and Bloomberg exports that use incompatible field-name schemas and numeric conventions.
+1. **Cross-vendor data harmonization** – the convexity scale-detection and Argentina adapter logic handle the real-world problem of merging Refinitiv and Bloomberg exports that use incompatible field-name schemas and numeric conventions.
 
 2. **Recomputing analytics from scratch** – the `formula_analytics` / `cashflow_schedule` / `recompute` functions (pipeline step 4) implement a fully self-contained, convention-locked duration and convexity calculator. Drop in any bond with a settlement date, maturity, coupon, and yield, and get auditable formula values independent of any vendor.
 
