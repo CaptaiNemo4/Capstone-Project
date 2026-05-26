@@ -1,7 +1,6 @@
-
 """
 tests/test_pipeline.py
-======================
+
 Unit and integration tests for the EM Sovereign Bond Convexity Toolkit.
 
 All core functions from data_pipeline.ipynb are re-implemented here as
@@ -606,13 +605,17 @@ class TestPipelineIntegration:
     @pytest.fixture(scope="class", autouse=True)
     def run_pipeline(self):
         """Execute the pipeline notebook and load the output."""
-        import subprocess, sys
+        import subprocess, sys, tempfile, os
+        # write the executed-notebook artifact to a real temp directory;
+        # tempfile.gettempdir() resolves correctly on Windows, macOS and Linux
+        # (a hardcoded "/tmp" path does not exist on Windows).
+        out_nb = os.path.join(tempfile.gettempdir(), "pipeline_test_executed.ipynb")
         result = subprocess.run(
             [
                 sys.executable, "-m", "jupyter", "nbconvert",
                 "--to", "notebook",
                 "--execute",
-                "--output", "/tmp/pipeline_test_executed.ipynb",
+                "--output", out_nb,
                 "data_pipeline.ipynb",
             ],
             capture_output=True,
