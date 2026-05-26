@@ -1,6 +1,6 @@
 """
 tests/test_pipeline.py
-======================
+
 Unit and integration tests for the EM Sovereign Bond Convexity Toolkit.
 
 All core functions from data_pipeline.ipynb are re-implemented here as
@@ -40,10 +40,9 @@ import numpy as np
 import pandas as pd
 import pytest
 
-# ---------------------------------------------------------------------------
+
 # Helpers / constants
 # (mirrors the locked-convention constants in data_pipeline.ipynb)
-# ---------------------------------------------------------------------------
 
 FREQUENCY = 2
 DAYCOUNT   = "30360"
@@ -77,7 +76,6 @@ def cashflow_schedule(
     Semi-annual coupon schedule walked back from maturity.
 
     Returns
-    -------
     (schedule, accrued_interest)
         schedule : list of {"cf": cash_flow, "t": time_in_years}
         accrued  : float
@@ -225,9 +223,9 @@ def parse_security_des(desc: str) -> dict | None:
     return {"Coupon": cpn, "Maturity": mat}
 
 
-# ---------------------------------------------------------------------------
+
 # 1–2.  yearfrac
-# ---------------------------------------------------------------------------
+
 
 class TestYearfrac:
     """30/360 and act/365 day-count correctness."""
@@ -260,9 +258,8 @@ class TestYearfrac:
             yearfrac(pd.Timestamp("2020-01-01"), pd.Timestamp("2021-01-01"), "actual360")
 
 
-# ---------------------------------------------------------------------------
+
 # 3–5.  cashflow_schedule
-# ---------------------------------------------------------------------------
 
 class TestCashflowSchedule:
     """Cash-flow count, timing, principal flag, and accrued interest."""
@@ -319,9 +316,9 @@ class TestCashflowSchedule:
         assert accrued == pytest.approx(0.0, abs=1e-10)
 
 
-# ---------------------------------------------------------------------------
+
 # 6–8.  formula_analytics
-# ---------------------------------------------------------------------------
+
 
 class TestFormulaAnalytics:
     """Modified duration and convexity against known values."""
@@ -393,9 +390,9 @@ class TestFormulaAnalytics:
         assert results[5] < results[10] < results[20]
 
 
-# ---------------------------------------------------------------------------
+
 # 9.  recompute (end-to-end on a synthetic DataFrame)
-# ---------------------------------------------------------------------------
+
 
 class TestRecompute:
     """recompute applies formula_analytics row-wise and returns finite arrays."""
@@ -428,9 +425,7 @@ class TestRecompute:
         assert np.all(dur < 10.0)
 
 
-# ---------------------------------------------------------------------------
 # 10–11.  Convexity scale harmonisation
-# ---------------------------------------------------------------------------
 
 class TestConvexityHarmonisation:
     """Bimodal detection and x100 rescale logic."""
@@ -484,9 +479,7 @@ class TestConvexityHarmonisation:
         assert post_ratio.min() > 0.5, "Pipeline assertion would fail after rescale"
 
 
-# ---------------------------------------------------------------------------
 # 12–13.  Vendor impossibility flag
-# ---------------------------------------------------------------------------
 
 class TestVendorImpossibilityFlag:
     """duration > remaining years to maturity should be flagged."""
@@ -536,9 +529,7 @@ class TestVendorImpossibilityFlag:
         assert not df.loc[0, "vendor_impossible"]
 
 
-# ---------------------------------------------------------------------------
 # 14–16.  parse_security_des
-# ---------------------------------------------------------------------------
 
 class TestParseSecurityDes:
     """Bloomberg security description parser."""
@@ -576,9 +567,7 @@ class TestParseSecurityDes:
         assert result["Coupon"] == pytest.approx(4.75, abs=1e-6)
 
 
-# ---------------------------------------------------------------------------
 # 17.  Integration test
-# ---------------------------------------------------------------------------
 
 # Mark the integration test so it can be skipped when inputs are absent.
 # Run with: pytest tests/test_pipeline.py -v  (skips if CSVs not found)
