@@ -262,8 +262,3 @@ restructure_cutoffs = {
 }
 ```
 
----
-
-## Licence
-
-MIT. See `LICENSE` for details.
