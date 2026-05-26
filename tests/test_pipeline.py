@@ -1,6 +1,6 @@
 """
 tests/test_pipeline.py
-
+======================
 Unit and integration tests for the EM Sovereign Bond Convexity Toolkit.
 
 All core functions from data_pipeline.ipynb are re-implemented here as
